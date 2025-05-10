@@ -43,8 +43,6 @@ function showQuestion(index) {
   questionEl.textContent = question.text;
   optionsEl.innerHTML = "";
   resultEl.innerHTML = "";
-  submitBtn.removeAttribute("disabled");
-  nextBtn.setAttribute("disabled", true);
   question.options.forEach((option, i) => {
     /*
     const div = document.createElement("div");
@@ -64,6 +62,12 @@ function showQuestion(index) {
    optionsEl.innerHTML += `<div><input type="radio" name="quiz-option" 
                           id=${id} value='${option}'><label for="${id}">${option}</label></div>`;
   });
+}
+
+function showFinalScore() {
+  questionEl.textContent = "Quiz Finished";
+  optionsEl.innerHTML = "";
+  resultEl.innerHTML = 'Your score:  ${score}/${questions.length}';
 }
 
 form.addEventListener("submit", (e) => {
@@ -97,12 +101,14 @@ document.querySelector(".next").addEventListener("click", (e) => {
   current++;
   if (current < questions.length) {
     showQuestion(current);
+    form.reset();
+    submitBtn.removeAttribute("disabled");
+    nextBtn.setAttribute("disabled", true);
   }
   else {
-    questionEl.textContent = "";
-    optionsEl.innerHTML = "";
-    submitBtn.setAttribute("visible", false);
-    resultEl.innerHTML = "Your score: " + score + "/" + questions.length;
+    showFinalScore();
+    submitBtn.setAttribute("disabled", true);
+    nextBtn.setAttribute("disabled", true);
   }
 })
 

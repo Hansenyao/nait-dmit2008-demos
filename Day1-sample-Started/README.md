@@ -1,12 +1,20 @@
 # Day 1 Sample
 
+## Installation
+
+- In project folder
+
+```
+    $ npm install
+    $ npm init
+```
+
 ## How to run
 
 - Run bellow command lines
 
 ```
-    $ nmp install vite
-    $ npm run dev
+    $ npm run run
 ```
 
 - Open file index.html in browser
