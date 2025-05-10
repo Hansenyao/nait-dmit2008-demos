@@ -1,0 +1,16 @@
+{
+  "name": "day1-sample-completed",
+  "version": "1.0.0",
+  "source": "index.html",
+  "scripts": {
+    "run": "vite",
+    "build": "vite build"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "vite": "^6.3.5"
+  }
+}

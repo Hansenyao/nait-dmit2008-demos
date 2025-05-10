@@ -1,0 +1,92 @@
+{
+  "questions": [
+    {
+      "id": "1",
+      "text": "What will be the output of the following code?\nfunction testVar() {\n  if (true) {\n    var x = 10;\n  }\n  console.log(x);\n}\ntestVar();",
+      "options": [
+        "10",
+        "undefined",
+        "ReferenceError",
+        "null"
+      ],
+      "correct": "10"
+    },
+    {
+      "id": "2",
+      "text": "What will be the output of the following code?\nfunction testLet() {\n  if (true) {\n    let y = 20;\n  }\n  console.log(y);\n}\ntestLet();",
+      "options": [
+        "20",
+        "undefined",
+        "ReferenceError",
+        "null"
+      ],
+      "correct": "ReferenceError"
+    },
+    {
+      "id": "3",
+      "text": "What will be the output?\nlet value = \"b\";\nswitch (value) {\n  case \"a\":\n    console.log(\"A\");\n  case \"b\":\n    console.log(\"B\");\n  case \"c\":\n    console.log(\"C\");\n}",
+      "options": [
+        "B",
+        "B, C",
+        "A, B, C",
+        "Syntax Error"
+      ],
+      "correct": "B, C"
+    },
+    {
+      "id": "4",
+      "text": "Which loop correctly prints only even numbers from 0 to 4?",
+      "options": [
+        "for(let i=0; i<5; i++) { if(i%2==0) console.log(i); }",
+        "for(let i=0; i<=5; i+=2) console.log(i);",
+        "for(let i=0; i<5; i++) { if(i%2!=0) continue; console.log(i); }",
+        "All of the above"
+      ],
+      "correct": "All of the above"
+    },
+    {
+      "id": "5",
+      "text": "Given the HTML:\n<ul>\n  <li>Item 1</li>\n  <li>Item 2</li>\n</ul>\nWhich code correctly selects all <li> elements?",
+      "options": [
+        "document.getElementById(\"li\")",
+        "document.querySelector(\"li\")",
+        "document.getElementsByTagName(\"li\")",
+        "document.querySelectorAll(\"ul\")"
+      ],
+      "correct": "document.getElementsByTagName(\"li\")"
+    },
+    {
+      "id": "6",
+      "text": "You want to log the text only when the button with class \"special\" is clicked, using event delegation. Which code is correct?",
+      "options": [
+        "document.getElementById(\"container\").addEventListener(\"click\", function(e) {\n  if (e.target.className === \"special\") {\n    console.log(e.target.textContent);\n  }\n});",
+        "document.getElementById(\"container\").addEventListener(\"click\", function(e) {\n  if (e.target.matches(\".special\")) {\n    console.log(e.target.textContent);\n  }\n});",
+        "document.querySelector(\".special\").addEventListener(\"click\", function(e) {\n  console.log(e.target.textContent);\n});",
+        "document.querySelectorAll(\".btn\").addEventListener(\"click\", function(e) {\n  if (e.target.matches(\".special\")) {\n    console.log(\"Special clicked\");\n  }\n});"
+      ],
+      "correct": "document.getElementById(\"container\").addEventListener(\"click\", function(e) {\n  if (e.target.matches(\".special\")) {\n    console.log(e.target.textContent);\n  }\n});"
+    },
+    {
+      "id": "7",
+      "text": "What will the function log?\nfunction sumAll(...nums) {\n  console.log(nums.length);\n}\nsumAll(1, 2, 3, 4);",
+      "options": [
+        "4",
+        "3",
+        "undefined",
+        "Error"
+      ],
+      "correct": "4"
+    },
+    {
+      "id": "8",
+      "text": "Which code correctly creates a shallow copy of an object `person`?\nconst person = { name: \"Ali\", address: { city: \"Toronto\" } };",
+      "options": [
+        "const copy = { ...person };",
+        "const copy = person;",
+        "Both A and B",
+        "Neither A nor B (deep copy needed)"
+      ],
+      "correct": "const copy = { ...person };"
+    }
+  ]
+}
