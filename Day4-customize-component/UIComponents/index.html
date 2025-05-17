@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Expense Tracker</title>
+  <link rel="stylesheet" href="css/main.css" />
+</head>
+<body>
+  <h1>My Expenses</h1>
+  
+  <!--Customized component 1: expense-card-->
+  <expense-card
+    title="Coffee"
+    category="Food"
+    date="2025-05-10"
+    amount="4.50"
+  ></expense-card>
+
+  <!--Customized component 2: expense-card-->
+  <expense-container id="container"
+    expenses='[{"id":1,"title":"Rent","category":"Housing","date":"2025-05-01","amount":1200},
+                {"id":2,"title":"Coffee","category":"Food","date":"2025-05-10","amount":4.5}]'>
+  </expense-container>
+
+  <script type="module" src="js/main.js"></script>
+</body>
+</html>
