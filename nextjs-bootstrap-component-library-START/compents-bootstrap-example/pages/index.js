@@ -18,9 +18,39 @@ export default function Home() {
       <UILibList data={UI_LIBRARY_LIST}/>
       <UILibGroup>{UI_LIBRARY_LIST}</UILibGroup>
       <h1>Hi</h1>
+      <PersonCard data={persons[0]}/>
     </>
   );
 }
+
+const persons = [
+  {
+    id: 1,
+    fname: "Ali",
+    lname: "Rezaei",
+    email: "ali.rezaei@example.com",
+    phone: "123-456-7890",
+    pic: "https://randomuser.me/api/portraits/men/1.jpg",
+    skills: ["JavaScript", "React", "Node.js"]
+  },
+  {
+    id: 2,
+    fname: "Sara",
+    lname: "Moradi",
+    email: "sara.moradi@example.com",
+    phone: "234-567-8901",
+    pic: "https://randomuser.me/api/portraits/women/2.jpg",
+    skills: ["Python", "Django", "Machine Learning"]
+  },
+  {
+    id: 3,
+    fname: "Hassan",
+    lname: "Karimi",
+    email: "hassan.karimi@example.com",
+    phone: "345-678-9012",
+    pic: "https://randomuser.me/api/portraits/men/3.jpg",
+    skills: ["Java", "Spring", "SQL"]
+  }];
 
 const UI_LIBRARY_LIST = [
 	{
