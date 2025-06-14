@@ -1,9 +1,9 @@
-
+ 
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
-
+ 
 export default function CityCard({data}) {
   return (
     <Card sx={{ maxWidth: 345 }}>
@@ -23,3 +23,17 @@ export default function CityCard({data}) {
     </Card>
   )
 }
+ 
+ 
+import { Stack } from "@mui/material";
+import CityCard from "./CityCard";
+ 
+export default function CityCardContainer({data}) {
+  return (
+    <Stack direction="row" spacing={2}>
+        {data.map((item,index)=><CityCard key={index} data={item}/>)}
+    </Stack>
+  )
+}
+ 
+ 

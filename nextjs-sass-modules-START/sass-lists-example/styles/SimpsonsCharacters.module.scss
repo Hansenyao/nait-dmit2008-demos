@@ -1,0 +1,24 @@
+@import "theme"; 
+
+.list {
+  /*background-color: #9bdcdf;*/
+  background-color: $backCoror;
+  min-width: 18%;
+  list-style: none;
+  padding-top:  10px;
+  padding-bottom:  10px;
+  border-radius: $borderRadius;
+}
+
+.list-item {
+  font-weight: 100;
+
+  &:hover {
+    /*font-size: 120%;*/
+    font-size: calc(1.2 * $fontSize);
+  }
+}
+
+.spacing {
+  margin: 5px;
+}
