@@ -29,6 +29,10 @@ import Typography from '@mui/material/Typography';
 
 import {useState} from 'react'
 import AdaptationReviewCard from '../components/AdaptationReviewCard';
+import { Alert } from '@mui/material';
+
+import { getReviews, postReview, removeReview } from '../utils/api/review';
+
 
 const MOCK_ADAPTATION_RATING = [{
   'title': 'Fight Club',
@@ -40,14 +44,50 @@ const REVIEWS_URL = " http://localhost:5000/reviews";
 
 export default function Home() {
   const [reviews, setReviews] = useState(MOCK_ADAPTATION_RATING);
+  const [reviewForm, setReviewForm] = useState({title:"", comment:"", rating:0});  
+  const [error, setError] = useState(null);
 
   async function getAllReviews() {
-    const response = await fetch(REVIEWS_URL);
-    const data = await response.json();
-    setReviews(data);
+    setError(null);
+
+    getReviews().then((data) => {
+        setReviews(data);
+      }).catch((e) => {
+        setError("Failing in loading data");
+      })
   }
 
-  return (
+  async function addNewReivew(e) {
+    e.preventDefault();
+    setError(null);
+
+    if (reviewForm.title == "" || 
+      reviewForm.comment == "" || 
+      reviewForm.rating == 0) {
+        setError("Please fill required fields");
+        return;
+    }
+
+    postReview(reviewForm).then((data) => {
+        console.log(data);
+        setReviews([data, ...reviews]);
+      }).catch((e) => {
+        setError("Adding Failed ...");
+      })    
+      
+      // Reset
+      setReviewForm({ title: "", comment: "", rating: 0 });
+  }
+
+  function deleteReview(id) {
+    setError(null);
+    
+    removeReview(id).then((data) => {
+      setReviews(reviews.filter(item => item.id != id));
+    }).catch(e => setError("Delete Failed"));
+  }
+
+  return (  
     <div>
       <Head>
         <title>Adaptation Reviews.</title>
@@ -63,7 +103,8 @@ export default function Home() {
       </AppBar>
       <main>
         <Container maxWidth="md">
-          <form>
+          {error && <Alert>{error}</Alert>}
+          <form onSubmit={addNewReivew}>
             <Grid container spacing={3}>
               <Grid item xs={12} sm={12}>
                 <TextField
@@ -72,6 +113,8 @@ export default function Home() {
                   label="Adaptation Title"
                   fullWidth
                   variant="standard"
+                  value={reviewForm.title}
+                  onChange={(e) => setReviewForm({ ...reviewForm, title: e.target.value })}
                 />
               </Grid>
               <Grid item xs={12} sm={12}>
@@ -81,6 +124,8 @@ export default function Home() {
                   label="Comments"
                   fullWidth
                   variant="standard"
+                  value={reviewForm.comment}
+                  onChange={(e) => setReviewForm({ ...reviewForm, comment: e.target.value })}
                 />
               </Grid>
               <Grid item xs={12} sm={12}>
@@ -90,6 +135,8 @@ export default function Home() {
                     row
                     aria-labelledby="adaptation-rating"
                     name="rating-buttons-group"
+                    value={reviewForm.rating}
+                    onChange={(e) => setReviewForm({...reviewForm, rating:e.target.value})}
                   >
                     <FormControlLabel value="1" control={<Radio />} label="1" />
                     <FormControlLabel value="2" control={<Radio />} label="2" />
@@ -128,7 +175,14 @@ export default function Home() {
             </Button>
           </Box>
           {reviews.map((adaptation, index)=> {
-            return <AdaptationReviewCard key={index} rating={adaptation.rating} title={adaptation.title} comment={adaptation.comment}/>
+            return <AdaptationReviewCard 
+                      key={index} 
+                      id={adaptation.id}
+                      rating={adaptation.rating} 
+                      title={adaptation.title} 
+                      comment={adaptation.comment}
+                      onDelete={deleteReview}
+                    />
           })}
         </Container>
       </main>
