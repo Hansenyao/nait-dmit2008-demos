@@ -1,4 +1,4 @@
-# React LifeCycle with our Reviews app.
+# React RESTFul APIs, State, in a Review App.
 
 # Why and What
 

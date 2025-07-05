@@ -25,31 +25,22 @@ import Typography from '@mui/material/Typography';
 
 import AdaptationReviewCard from '../components/AdaptationReviewCard'
 
-import { getReviews, postReview } from '../utils/api/reviews.js'
+import { getReviews, postReview, deleteReview, saveReview } from '../utils/api/reviews.js'
 
 export default function Home() {
   const [reviews, setReviews] = useState([])
   const [title, setTitle] = useState("")
   const [comments, setComments] = useState("")
   const [rating, setRating] = useState(0)
+  const [numIntract,setNumIntract]=useState(0);
 
-  // on the client side, our function will fetch
-  // all of our reviews on loading of the page.
-  useEffect(()=> {
-    loadAllReviews()
-  }, [])
+  useEffect(()=>{
+    loadAllReviews();
+  },[])
 
-  // for debugging "reviews" purposes only
-  useEffect(()=> {
-    console.log(reviews)
-  }, [reviews])
-
-  const deleteReviewItem = (deleteReviewId) => {
-    let allReviews = reviews.filter((review)=> {
-      return review.id !== deleteReviewId
-    })
-    setReviews(allReviews)
-  }
+  useEffect(()=>{
+    setNumIntract(pre=>pre+1);
+  },[reviews])
 
   const handleSubmit = (event) => {
     event.preventDefault()
@@ -67,6 +58,22 @@ export default function Home() {
       setReviews(data)
     })
   }
+  function removeReview(id){
+    deleteReview(id).then((_)=>{
+       setReviews(reviews.filter(item=>id!=item.id));
+    })
+  }
+  function editReview(id,title,comment,rating){
+    saveReview({id,title,comment,rating}).then((data)=>{
+     setReviews(reviews.map(item=>{
+      if(id==item.id) return {id,title,comment,rating}
+      return item;
+     }))
+    })
+    
+
+  }
+
 
   return (
     <div>
@@ -154,17 +161,20 @@ export default function Home() {
               pb: 2,
             }}
           >
+           
+          </Box>
           {reviews.map((adaptation, index)=> {
             return <AdaptationReviewCard
                 key={index}
                 id={adaptation.id}
-                deleteCallback={deleteReviewItem}
                 rating={adaptation.rating}
                 title={adaptation.title}
                 comment={adaptation.comment}
+                onDelete={removeReview}
+                onEdit={editReview}
               />
           })}
-          </Box>
+          <Typography variant='h4'>Number of Intraction: {numIntract}</Typography>
         </Container>
       </main>
     </div>

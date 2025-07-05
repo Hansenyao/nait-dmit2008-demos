@@ -1,3 +1,4 @@
+import { ratingClasses } from '@mui/material/Rating'
 import { BASE_URL } from './base.js'
 
 const getReviews = () => {
@@ -44,15 +45,29 @@ const postReview = ({title, comment, rating}) => {
   })
 }
 
-const deleteReviewItem = (id) => {
-  return fetch(`${BASE_URL}/reviews/${id}/`, {
-    method: "DELETE"
-  }).then((response)=> {
-    return response.json()
-  }).then((data)=> {
-    return Promise.resolve(data)
-  })
-} 
+const deleteReview= async (id)=>{
+  const resp=await fetch(`${BASE_URL}/reviews/${id}`,{
+    method: "DELETE",
+    headers: {
+      'Content-Type': 'application/json'       
+    }
+  });
+  if(!resp.ok) throw new Error("fail to delete");
+  else return await resp.json()
+}
 
+const saveReview=async ({id,title,comment,rating})=>{
+  const resp=await fetch(`${BASE_URL}/reviews/${id}`,{
+    method: "PATCH",
+    headers: {
+      'Content-Type': 'application/json'       
+    },
+    body:JSON.stringify({
+      title,comment,rating
+    })
+  });
+  if(!resp.ok) throw new Error("fail to delete");
+  else return await resp.json()
+}
 
-export { getReviews, postReview, deleteReviewItem }
+export { getReviews, postReview, deleteReview,saveReview }
