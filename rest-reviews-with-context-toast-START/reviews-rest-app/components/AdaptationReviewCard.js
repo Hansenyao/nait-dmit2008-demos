@@ -8,20 +8,18 @@ import IconButton from '@mui/material/IconButton';
 
 import Typography from '@mui/material/Typography';
 
+
 import { deleteReview } from '../utils/api/reviews';
 
-import { useContext } from 'react';
-import { AppNotificationContext } from './state/AppNotification';
+import { useNotification } from './state/AppNotification';
 
 export default function AdaptationReviewCard(props) {
-  const {showNotification} = useContext(AppNotificationContext);
+  const {showNotification}=useNotification();
+  
   const removeCurrentReview = () => {
     deleteReview(props.id).then((data)=> {
       props.removeReview(props.id)
-      showNotification({
-        message: "The review was deleted.", 
-        severity: "warning"
-      })
+      showNotification("The review was deleted","warning");
     })
   }
 

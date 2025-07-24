@@ -1,34 +1,21 @@
-import AppNotification from '../components/state/AppNotification.js'
 import '../styles/globals.css'
+import {AppNotification} from '../components/state/AppNotification'
 
-import { ThemeProvider, createTheme } from '@mui/material/styles'
 
-import CssBaseline from '@mui/material/CssBaseline'
-import { useTheme } from '../context/themeContext'
-import { themeAppContext } from '../context/themeContext'
-import { useContext } from 'react'
-
-//const theme = useTheme();
-
-//const theme = useContext(themeAppContext);
-
-const myTheme = createTheme({
-  palette: {
-    mode: 'light',
-  },
-})
+import {ThemeSwitcherContext} from '../context/themeContext'
+import ThemeWraper from '../components/ThemeWraper'
 
 function MyApp({ Component, pageProps }) {
   return (
-    <themeContext>
-      <AppNotification >
-        <ThemeProvider theme={myTheme}>
-          <CssBaseline />
+    <AppNotification>
+      <ThemeSwitcherContext>
+        <ThemeWraper>
           <Component {...pageProps} />
-        </ThemeProvider>
-      </AppNotification>
-    </themeContext>
+        </ThemeWraper>
+      </ThemeSwitcherContext>
+    </AppNotification>
   )
 }
+
 
 export default MyApp

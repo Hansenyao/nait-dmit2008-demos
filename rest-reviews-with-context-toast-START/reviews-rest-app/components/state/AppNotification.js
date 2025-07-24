@@ -1,22 +1,29 @@
-import { useState, createContext } from 'react'
+import { useState, createContext,useContext } from 'react';
+
 
 import Snackbar from '@mui/material/Snackbar';
 import MuiAlert from '@mui/material/Alert';
 
-export const AppNotificationContext = createContext({});
+export const AppNotificationContext = createContext({})
 
-export default function AppNotification(props) {
+export function useNotification() {
+  const context = useContext(AppNotificationContext)
+  if (!context) {
+    throw new Error(`useCount must be used within a AppNotification`)
+  }
+  return context
+}
+
+export function AppNotification(props) {
     const [open, setOpen] = useState(false);
-    const [message, setMessage] = useState('Done!');
-    const [severity, setSeverity] = useState('info');
+    const [message,setMessage]=useState("Done!");
+    const [severity, setSeverity]=useState("info");
 
-    const showNotification = ({message, severity}) => {
-      setMessage(message);
-      setSeverity(severity);
-      // display the message
-      setOpen(true);
-    }
-
+    const showNotification=(msg,severity)=>{
+        setMessage(msg);
+        setSeverity(severity);
+        setOpen(true)
+    } 
     const handleClose = (event, reason) => {
       if (reason === 'clickaway') {
         return;

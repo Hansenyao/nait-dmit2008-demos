@@ -10,10 +10,11 @@ import SEO from '../components/SEO'
 import { AppNotificationContext } from '../components/state/AppNotification';
 
 import { getReviews } from '../utils/api/reviews'
+import { ClassNames } from '@emotion/react';
 
 export default function Home() {
   const [reviews, setReviews] = useState([]);
-  const {showNotification} = useContext(AppNotificationContext);
+  const {showNotification}=useContext(AppNotificationContext);
   
   useEffect(()=> {
     loadAllReviews()
@@ -29,14 +30,11 @@ export default function Home() {
   const loadAllReviews = () => {
     getReviews().then((data)=> {
       setReviews(data)
-      showNotification({
-        message: "All reviews are loaded!",
-        severity: "info"
-      })
+      showNotification("All reviews are loaded!","info");
     })
   }
 
-  return <>
+  return <div>
     <SEO />
     <NavBar title={'Adaptation Reviews'} />
     <Container
@@ -56,5 +54,5 @@ export default function Home() {
         removeReview={removeReview}
       />
     </Container>
-  </>
+  </div>
 }
